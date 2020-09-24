@@ -31,3 +31,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          snap install powershell --classic
+          pwsh
+          Install-Module AppVeyorBYOC -Scope CurrentUser -Force; Import-Module AppVeyorBYOC
+          Connect-AppVeyorToComputer -AppVeyorUrl https://ci.appveyor.com -ApiToken 3pghdhojbcumv6ged38s
+          echo localhost:8080
