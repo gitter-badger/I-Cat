@@ -1,4 +1,7 @@
-run:
-     Ubuntu 18.04 LTS
-     sudo apt install git
-     
+Name: gh.yml
+On: pus_request.*
+Envrioment: |
+        Ubuntu 18.04 LTS
+Terminal: |
+        sudo apt install git
+        
