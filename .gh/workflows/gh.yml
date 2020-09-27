@@ -1,7 +1,9 @@
 Name: gh.yml
-On: pus_request.*
+On: push_request.*
 Envrioment: |
         Ubuntu 18.04 LTS
 Terminal: |
-        sudo apt install git
+         apt-get install git
+         add-apt-repository ppa:git-core/ppa
+         apt update; apt install git
         
