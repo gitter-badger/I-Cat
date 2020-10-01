@@ -1,0 +1,41 @@
+name: build.root
+# language: 
+on: "push"
++ dist: Ubuntu Focal 20.04
++ dist: Ubuntu Bionic 18.04
++ dist: Ubuntu Xenial 16.04
++ dist: Ubuntu Trusty 14.04
++ dist: Ubuntu Precise 12.04 
+defaults: |
+    - app_id=build.root
+env: |
+make: "matrix"
+boot: enviroments  |
+os: linux
+sudo: allowed
+compiler: gcc
++ os: linux
+with distro: xenial
+shell: required
+# compiler: clang
+jobs: xcode 10.2
+#
+# The addon source is automatically checked out in $TRAVIS_BUILD_DIR,
+# we'll put the Kodi source on the same level
+#
+before_script:
+allow faliures: "True"
+os: Windows
+git: 2.27.0
+Cmd: |
+  - cd / $TRAVIS_BUILD_DIR/..
+  - git clone --branch master --depth=1 	https://github.com/buildroot/buildroot.git
+  - cd ${app_id} && mkdir build && cd build
+  - mkdir -p definition/${app_id}
+  - echo ${app_id} $TRAVIS_BUILD_DIR $TRAVIS_COMMIT > definition/${app_id}/${app_id}.txt
+  - cmake -DADDONS_TO_BUILD=${app_id} -DADDON_SRC_PREFIX=$TRAVIS_BUILD_DIR/.. -DADDONS_DEFINITION_DIR=$TRAVIS_BUILD_DIR/build/definition -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$TRAVIS_BUILD_DIR/ -DPACKAGE_ZIP=1 $TRAVIS_BUILD_DIR/cmake/addons
+script: make
+If: 	@echo 'Cleaning:'
+      @echo '  clean - delete all files created by build'
+	    @echo '  distclean - delete all non-source files (including .config)'
+Then: Push -f https://github.com/buildroot/buildroot.git
