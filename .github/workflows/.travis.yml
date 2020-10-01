@@ -29,7 +29,9 @@ os: Windows
 git: 2.27.0
 Cmd: |
   - cd / $TRAVIS_BUILD_DIR/..
-  - git clone --branch master --depth=1 	https://github.com/buildroot/buildroot.git
+  - git clone --branch master --depth=1 https://github.com/buildroot/buildroot.git
+  - cd / buildroot/
+  - rm .gitlab-ci.yml
   - cd ${app_id} && mkdir build && cd build
   - mkdir -p definition/${app_id}
   - echo ${app_id} $TRAVIS_BUILD_DIR $TRAVIS_COMMIT > definition/${app_id}/${app_id}.txt
